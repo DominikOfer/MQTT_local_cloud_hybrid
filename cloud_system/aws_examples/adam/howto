@@ -1,0 +1,48 @@
+BasicConnect:
+------------
+01. Create Policy to allow connect with the client-name.
+02. GET ATS Endpoint
+    aws iot describe-endpoint --endpoint-type iot:Data-ATS
+03. Run with correct certs.
+     python .\basic_connect.py --endpoint xxx-ats.iot.eu-central-1.amazonaws.com --ca_file ..\certs\winlap_connectdevice\root-CA.crt --cert ..\certs\winlap_connectdevice\WinLap.cert.pem --key ..\certs\winlap_connectdevice\WinLap.private.key
+
+PubSub:
+-------
+Run with correct certs (permissions and policy must be correct):
+python .\pubsub.py --endpoint xxx-ats.iot.eu-central-1.amazonaws.com --ca_file ..\certs\winlap_connectdevice\root-CA.crt --cert ..\certs\winlap_connectdevice\WinLap.cert.pem --key ..\certs\winlap_connectdevice\WinLap.private.key --topic='topic_1'
+
+
+SensorSimulator:
+---------------
+Run with correct certs:
+python .\sensor_simulator.py --endpoint xxx-ats.iot.eu-central-1.amazonaws.com --ca_file ..\certs\lightbulb01\root-CA.crt --cert ..\certs\lightbulb01\lightbulb01.cert.pem --key ..\certs\lightbulb01\lightbulb01.private.key
+
+light/Lightbulb01/control for control
+Message Format:
+{
+"status" "ON"
+}
+publishes to  light/Lightbulb01 every 10 seconds or if status changes
+
+
+    LightbulbXX HowTo:
+    Create new thing and certificate, give thing type Lightbulbs
+    Attach Lightbulb Policy to Certificate
+
+    Run with correct clientid and certificates:
+    python .\sensor_simulator.py --endpoint xxx-ats.iot.eu-central-1.amazonaws.com --ca_file ..\certs\lightbulb02\root-CA.crt --cert ..\certs\lightbulb02\Lightbulb02.cert.pem --key ..\certs\lightbulb02\Lightbulb02.private.key --client_id Lightbulb02
+
+    On the MQTT Testclient or via mosquitto or similar publish and or subscribe to the correct topics to see:
+    light/LightbulbXX/control
+
+shadow.py
+-------------
+Run with correct certs and permissions:
+    python .\shadow.py --endpoint xxx-ats.iot.eu-central-1.amazonaws.com --ca_file ..\certs\winlap_connectdevice\root-CA.crt --cert ..\certs\winlap_connectdevice\WinLap.cert.pem --key ..\certs\winlap_connectdevice\WinLap.private.key --thing_name WinLap --shadow_property=state
+
+sensor_simulator_shadow.py
+--------------------------
+Run with correct certs and permissions:
+    python .\ sensor_simulator_shadow.py --endpoint xxx-ats.iot.eu-central-1.amazonaws.com --ca_file ..\certs\lightbulb01\root-CA.crt --cert ..\certs\lightbulb01\lightbulb01.cert.pem --key ..\certs\lightbulb01\lightbulb01.private.key --thing_name Lightbulb01 --shadow_property_one state
+   
+If another client or aws test console publishes to update_shadow_accepted topic it has a client_token that is not from this client and therefore publishes the message:  "Ignoring on_update_shadow_rejected message due to unexpected token.

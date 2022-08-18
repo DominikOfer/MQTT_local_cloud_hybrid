@@ -1,0 +1,49 @@
+APIs: Configure the broker, then just run them.
+Minimal viable Prototype:
+--------------------------
+python mqtt_api_mvp.py
+
+Authentication:
+--------------
+python mqtt_api_basicauth.py
+
+Payload Encryption:
+-------------------
+python mqtt_api_encryption.py
+
+Message Integrity Checks:
+-------------------------
+python mqtt_api_integrity.py
+
+TLS:
+----
+python mqtt_api_tls.py
+
+
+
+Sensor Simulators: Run them with correct parameters.
+
+Default:
+---------
+python sensor_simulator.py -h 10.0.0.100 -n sensor01 -v
+
+Authentication:
+--------------
+python sensor_simulator.py -h 10.0.0.100 -n sensor01 -v -u admin -P secret
+
+Payload Encryption:
+-------------------
+python sensor_simulator_encryption.py -h 10.0.0.100 -n lightbulb01 -v
+
+Integrity Checks:
+------------------
+python sensor_simulator_integrity.py -h 10.0.0.100 -n lightbulb01 -v
+
+TLS:
+----
+Configure certs_location, then run it.
+python sensor_simulator_tls.py -h rasperrypi -n sensor01 -v -q 1
+
+Bridge:
+-----
+python sensor_simulator_bridge.py -h 10.0.0.100 -n lightbulb01 -v

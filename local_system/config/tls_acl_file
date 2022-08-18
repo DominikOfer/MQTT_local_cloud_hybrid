@@ -1,0 +1,10 @@
+user admin
+topic readwrite #
+
+user cli
+topic read sensorstopic/sensor01
+topic write sensorstopic/sensor01/control
+
+user sensor
+topic read sensorstopic/#
+topic write sensorstopic/sensor01

@@ -1,0 +1,5 @@
+The hybrid system sensor simulator is part of the local system.
+
+Howto:
+Start the sensor_simulator_bridge.py with the broker running the bridge.config from the local_system\config\conf.d folder.
+python .\sensor_simulator_bridge.py -h 10.0.0.100 -n lightbulb01 -v

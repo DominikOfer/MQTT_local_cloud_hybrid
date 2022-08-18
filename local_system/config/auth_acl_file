@@ -1,0 +1,18 @@
+user admin
+topic readwrite #
+
+user student
+topic readwrite sensorstopic/#
+
+user sensor1
+topic readwrite sensorstopic/sensor01/control
+topic readwrite sensorstopic/sensor01
+
+user subscriber
+topic read sensorstopic/#
+
+user publisher
+topic write sensorstopic/sensor01/control
+topic read sensorstopic/sensor01
+
+pattern write $SYS/broker/connection/%c/state
